@@ -23,7 +23,7 @@ class Register extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/register', {
+    fetch('https://immense-cliffs-80535.herokuapp.com/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -34,11 +34,13 @@ class Register extends React.Component {
     })
       .then(response => response.json())
       .then(user => {
-        if (user) {
+        if (user.id) { //若.id 存在才會是 true，反之不存在(undefined) 就不會過
           this.props.loadUser(user)
-          this.props.onRouteChange('home');
+          this.props.onRouteChange('signin');
+          alert('register success! please sign in')
         }
       })
+      .catch( err => console.log(err))
   }
 
   render() {
